@@ -1,7 +1,7 @@
 # TX-sim
 ## 可飽和変流器
 ### 磁気ヒステリシスモデル
-Jiles–Atherton モデルを採用。$\tanh$関数でも可。
+Jiles–Atherton モデルを採用。 $\tanh$ 関数でも可。
 
 $$
 \begin{aligned}

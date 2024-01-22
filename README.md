@@ -11,7 +11,7 @@ $$
         \cosh \left(\frac{H+\alpha M}{a}\right)-\frac{a}{H+\alpha M}
     \right]\\
     \frac{dM_{irr}}{dH}&=
-    \frac{M_{an}-M_{irr}}{k\delta-\alpha (M_{an}-M_{irr})}\\
+    \frac{M_{an}-M}{k\delta-\alpha (M_{an}-M)}\\
     \delta&=
     \begin{cases}
     +1, \frac{dH}{dt}>0\\
@@ -40,7 +40,7 @@ E_r=
 $$
 
 $$
-\sum_\text{loop}V_i=0\quad\to\quad E_r=R_f+L_f\frac{dI_f}{dt}
+\sum_\text{loop}V_i=0\quad\to\quad E_r=R_fI_f+L_f\frac{dI_f}{dt}
 $$
 
 ### 結果

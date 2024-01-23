@@ -18,8 +18,6 @@ def hysteresis(args):
     H = [0.0]
     delta = [0.0]
     Man = [0.0]
-    dMirrdH = [0.0]
-    Mirr = [0.0]
     M = [0.0]
 
     for i in range(args.Nfirst):
@@ -38,11 +36,9 @@ def hysteresis(args):
         else:
             delta.append(-1)
 
-    for i in range(args.Nfirst + args.Ndown + args.Nup):
-        Man.append(args.Ms * (1 / np.tanh((H[i + 1] + args.alpha * M[i]) / args.a) - args.a / (H[i + 1] + args.alpha * M[i])))
-        dMirrdH.append((Man[i+1] - M[i]) / (args.k * delta[i+1] - args.alpha * (Man[i + 1] - M[i])))
-        Mirr.append(Mirr[i] + dMirrdH[i + 1] * (H[i+1] - H[i]))
-        M.append(args.c * Man[i + 1] + (1 - args.c) * Mirr[i + 1])
+    for n in range(args.Nfirst + args.Ndown + args.Nup):
+        Man.append(args.Ms*(1/np.tanh((H[n+1]+args.alpha*M[n])/args.a)-args.a/(H[n+1]+args.alpha*M[n])))
+        M.append(M[n]+(Man[n+1]-M[n])/(args.k*delta[n]-args.alpha*(Man[n+1]-M[n]))/(1+args.c)*(H[n+1]-H[n])+args.c/(1+args.c)*(Man[n+1]-Man[n]))
 
     plt.plot(H, M)
     plt.show()
@@ -62,8 +58,6 @@ def main(args):
         t = [0.0]
 
         Man = [0.0]
-        dMirrdH = [0.0]
-        Mirr = [0.0]
         M = [0.0]
         delta = [0.0]
 
@@ -74,10 +68,8 @@ def main(args):
                 delta.append(1)
             else:
                 delta.append(-1)
-            Man.append(args.Ms * (1 / np.tanh((H[n + 1] + args.alpha * M[n]) / args.a) - args.a / (H[n + 1] + args.alpha * M[n])))
-            dMirrdH.append((Man[n+1] - M[n]) / (args.k * delta[n+1] - args.alpha * (Man[n + 1] - M[n])))
-            Mirr.append(Mirr[n] + dMirrdH[n + 1] * (H[n+1] - H[n]))
-            M.append(args.c * Man[n + 1] + (1 - args.c) * Mirr[n + 1])
+            Man.append(args.Ms*(1/np.tanh((H[n+1]+args.alpha*M[n])/args.a)-args.a/(H[n+1]+args.alpha*M[n])))
+            M.append(M[n]+(Man[n+1]-M[n])/(args.k*delta[n]-args.alpha*(Man[n+1]-M[n]))/(1+args.c)*(H[n+1]-H[n])+args.c/(1+args.c)*(Man[n+1]-Man[n]))
             B.append(args.mu0*M[n])
             e.append(-args.N*args.S*(B[n+1]-B[n])/args.dt)
             v.append(abs(e[n]))

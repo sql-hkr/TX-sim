@@ -1,24 +1,34 @@
 # TX-sim
 ## 可飽和変流器
 ### 磁気ヒステリシスモデル
-Jiles–Atherton モデルを採用。 $\tanh$ 関数でも可。
+Jiles–Atherton モデルを採用する
+
+> [!TIP]
+> 詳しくは以下のURLを参照されたい
+> 
+> https://en.wikipedia.org/wiki/Jiles–Atherton_model
+
+非履歴磁化
 
 $$
-\begin{aligned}
-    M&=cM_{an}+(1-c)M_{irr}\\
-    M_{an}&=
-    M_s\left[
-        \cosh \left(\frac{H+\alpha M}{a}\right)-\frac{a}{H+\alpha M}
-    \right]\\
-    \frac{dM_{irr}}{dH}&=
-    \frac{M_{an}-M}{k\delta-\alpha (M_{an}-M)}\\
-    \delta&=
-    \begin{cases}
-    +1, \frac{dH}{dt}>0\\
-    -1, \frac{dH}{dt}<0
-    \end{cases}\\
-    B(H)&=\mu_0M(H)\\
-\end{aligned}
+M_{an}=(1-t)M_{an}^{iso}+tM_{an}^{aniso}
+\xrightarrow{t=0}M_{an}^{iso}
+$$
+
+等方性
+
+$$
+M_{an}^{iso}=M_s\left[\coth\left(\frac{H+\alpha M}{a}\right)-\frac{a}{H+\alpha M}\right]
+$$
+
+$\delta\triangleq\text{sgn}\left(\frac{dH}{dt}\right)$
+
+$$
+\frac{dM}{dH}=\frac{1}{1+c}\frac{M_{an}-M}{\delta k-\alpha(M_{an}-M)}+\frac{c}{1+c}\frac{dM_{an}}{dH}
+$$
+
+$$
+B(H)=\mu_0\left[H+M(H)\right]\approx \mu_0M(H) \quad \because |H|\ll |M|
 $$
 
 ### 励磁回路
@@ -27,7 +37,7 @@ $$
 $$
 
 $$
-\mathcal{E}=-N_2\frac{d\Phi}{dt}\approxeq -N_2\frac{d}{dt}(BS)
+\mathcal{E}=-\frac{d\Phi}{dt}=-N_2\frac{d\phi}{dt}\approx -N_2\frac{d}{dt}(BS)
 $$
 
 $$
